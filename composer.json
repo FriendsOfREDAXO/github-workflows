@@ -1,0 +1,9 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "test": "phpunit --testdox"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  }
+}
