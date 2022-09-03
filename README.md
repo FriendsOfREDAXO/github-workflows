@@ -6,7 +6,7 @@ Informationen rund um Workflows und Actions könnt ihr in der offiziellen Dokume
 
 ## Workflows verwenden
 
-Um die Workflows in eurem Github Repository zu verwenden, müsst ihr alle Dateien (außer README.md) aus diesem Repository in eures Kopieren. Die Ordnerstruktur muss bestehen bleiben. Weiter müssen die Actions in eurem Repository aktiviert sein. Die Einstellungen findet Ihr unter: _Settings > Actions > General > `Allow all actions and reusable workflows`_.
+Um die Workflows in eurem Github Repository zu verwenden, müsst ihr alle Dateien (außer README.md) aus diesem Repository in eures Kopieren. Die Ordnerstruktur muss bestehen bleiben. Weiter müssen die Actions in eurem Repository aktiviert sein. Die Einstellungen findet ihr unter: _Settings > Actions > General > `Allow all actions and reusable workflows`_.
 
 Ein Workflow ist über eine `.yml` definiert, diese befinden sich im Ordner `.github/workflows`.
 
