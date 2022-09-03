@@ -22,6 +22,7 @@ Weitere Informationen gibt es in der offiziellen Dokumentation: https://phpunit.
 Schaut man sich den Workflow `phpunit.yml` an, kann man relativ einfach herausfinden was in diesem passiert.
 
 Neben Namen definiert man zunächst wann dieser aufgerufen werden soll. In diesem Fall bei einem Push oder Pull request in den Branch `master` oder `main`. Danach wird eine virtuelle Maschine mit der neuesten Ubuntu Version gestartet.
+Möchte man einen Workflow überspringen, fügt man der Commit-Message einfach eine der folgenden Befehle hinzu: `[skip ci]`, `[ci skip]`, `[no ci]`, `[skip actions]`, `[actions skip]`.
 
 Nun folgen die Schritte die für den eigentlichen Workflow relevant sind:
 
