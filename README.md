@@ -34,3 +34,8 @@ Nun folgen die Schritte die für den eigentlichen Workflow relevant sind:
 5. Das Addon in den redaxo_cms-Ordner verschieben und installieren. In diesem Schritt könnt ihr noch weitere Addons installieren, falls diese benötigt werden.
 6. Abhängigkeiten aus der composer.json installieren, aktuell nur `phpunit`.
 7. PHPUnit ausführen. PHPUnit wird über ein Script aufgerufen, das in der composer.json definiert ist.
+
+## PHPUnit lokal ausführen
+
+PHPUnit kann auch lokal ausgeführt werden. Voraussetzung ist, dass das Addon in der regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
+Im Addon-Ordner müssen dann die entsprechenden Composer-Packages installiert werden. Das passiert über ein Terminal mit `composer install`. Danach kann PHPUnit mit `composer test` aufgerufen werden.
