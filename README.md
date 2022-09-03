@@ -13,6 +13,7 @@ Ein Workflow ist über eine `.yml` definiert, diese befinden sich im Ordner `.gi
 Weitere Informationen könnt ihr in den Kommentaren des jeweiligen Workflow finden.
 
 Um den PHPUnit Workflow zu nutzen, müssen vorher natürlich noch die Tests definiert werden. Diese müssen sich im Ordner `tests` befinden. Ein Test muss mit `_test` enden z.B. `addon_test.php`. Ein sehr kleines Beispiel liegt im Activity Log Addon: https://github.com/FriendsOfREDAXO/activity_log/blob/master/tests/rex_activity_test.php.
+Viele weitere Beispiele gibt es im REDAXO Repository: https://github.com/redaxo/redaxo/tree/main/redaxo/src/core/tests.
 
 Weitere Informationen gibt es in der offiziellen Dokumentation: https://phpunit.de/documentation.html.
 
