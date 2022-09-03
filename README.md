@@ -39,3 +39,8 @@ Nun folgen die Schritte die für den eigentlichen Workflow relevant sind:
 
 PHPUnit kann auch lokal ausgeführt werden. Voraussetzung ist, dass das Addon in der regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
 Im Addon-Ordner müssen dann die entsprechenden Composer-Packages installiert werden. Das passiert über ein Terminal mit `composer install`. Danach kann PHPUnit mit `composer test` aufgerufen werden.
+
+## TODO
+
+- [ ] Workflow für E2E Tests anlegen
+- [ ] Workflow für REXStan anlegen
