@@ -33,10 +33,10 @@ Nun folgen die Schritte die für den eigentlichen Workflow relevant sind:
 6. Abhängigkeiten aus der composer.json installieren, aktuell nur `phpunit`.
 7. PHPUnit ausführen. PHPUnit wird über ein Script aufgerufen, das in der composer.json definiert ist.
 
-## PHPUnit lokal ausführen
+## PHPUnit/PestPHP lokal ausführen
 
-PHPUnit kann auch lokal ausgeführt werden. Voraussetzung ist, dass das Addon in der regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
-Im Addon-Ordner müssen dann die entsprechenden Composer-Packages installiert werden. Das passiert über ein Terminal mit `composer install`. Danach kann PHPUnit mit `composer test` aufgerufen werden.
+PHPUnit/PestPHP kann auch lokal ausgeführt werden. Voraussetzung ist, dass das Addon in der regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
+Im Addon-Ordner müssen dann die entsprechenden Composer-Packages installiert werden. Das passiert über ein Terminal mit `composer install`. Danach kann PHPUnit/PestPHP mit `composer test` aufgerufen werden.
 
 ## TODO
 
