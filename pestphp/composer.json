@@ -1,0 +1,14 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "test": "./vendor/bin/pest --testdox"
+  },
+  "require-dev": {
+    "pestphp/pest": "^1.22"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
