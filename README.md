@@ -12,15 +12,13 @@ Ein Workflow ist über eine `.yml` definiert, diese befinden sich im Ordner `.gi
 
 Weitere Informationen könnt ihr in den Kommentaren des jeweiligen Workflow finden.
 
-Um den PHPUnit Workflow zu nutzen, müssen vorher natürlich noch die Tests definiert werden. Diese müssen sich im Ordner `tests` befinden. Ein Test muss mit `_test` enden z.B. `addon_test.php`. Ein sehr kleines Beispiel liegt im Activity Log Addon: https://github.com/FriendsOfREDAXO/activity_log/blob/master/tests/rex_activity_test.php.
+Um PHPUnit oder PestPHP zu nutzen, müssen vorher natürlich noch die Tests definiert werden. Diese müssen sich im Ordner `tests` befinden. Ein Test muss mit `_test` enden z.B. `addon_test.php`.
+Ein einfaches Beispiel findet ihr im jeweiligen Ordner.
 Viele weitere Beispiele gibt es im REDAXO Repository: https://github.com/redaxo/redaxo/tree/main/redaxo/src/core/tests.
-
-Weitere Informationen gibt es in der offiziellen Dokumentation: https://phpunit.de/documentation.html.
-
 
 ### Was im Workflow passiert
 
-Schaut man sich den Workflow `phpunit.yml` an, kann man relativ einfach herausfinden was in diesem passiert.
+Schaut man sich den Workflow `phpunit/phpunit.yml` an, kann man relativ einfach herausfinden was in diesem passiert.
 
 Neben Namen definiert man zunächst wann dieser aufgerufen werden soll. In diesem Fall bei einem Push oder Pull request in den Branch `master` oder `main`. Danach wird eine virtuelle Maschine mit der neuesten Ubuntu Version gestartet.
 Möchte man einen Workflow überspringen, fügt man der Commit-Message einfach eine der folgenden Befehle hinzu: `[skip ci]`, `[ci skip]`, `[no ci]`, `[skip actions]`, `[actions skip]`.
