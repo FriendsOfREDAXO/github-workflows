@@ -43,4 +43,4 @@ Im Addon-Ordner müssen dann die entsprechenden Composer-Packages installiert we
 - [ ] Workflow für E2E Tests anlegen
 - [ ] Workflow für REXStan anlegen
 - [x] Workflow für Pest anlegen (als alternative zu PHPUnit)
-- [ ] Beispiel im jeweiligen Workflow anlegen
+- [x] Beispiel im jeweiligen Workflow anlegen
