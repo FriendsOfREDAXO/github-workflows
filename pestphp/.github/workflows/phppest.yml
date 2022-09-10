@@ -1,4 +1,4 @@
-name: PHPUnit
+name: PestPHP
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  check:
+  pestphp:
 
     runs-on: ubuntu-latest
     permissions:
