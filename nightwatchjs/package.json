@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "test": "nightwatch"
+  },
+  "dependencies": {
+    "nightwatch": "^2.3.4"
+  },
+  "devDependencies": {
+    "geckodriver": "^3.0.2"
+  }
+}
