@@ -6,6 +6,7 @@ https://phpunit.readthedocs.io/en/9.5/
 
 ```php
 <?php
+
 class addon
 {
     public static function getName(): string
@@ -31,6 +32,8 @@ class addon
 ```
 
 ### Tests
+
+`tests/unit/example_test.php`
 
 ```php
 <?php
@@ -62,7 +65,7 @@ final class AddonTest extends TestCase
 
 ## Resultat
 
-```
+```shell
  ✔ Get name [3.01 ms]
  ✔ Get invalid value [0.18 ms]
  ✔ Get valid value [0.07 ms]

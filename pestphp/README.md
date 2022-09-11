@@ -33,6 +33,8 @@ class addon
 
 ### Tests
 
+`tests/unit/example_test.php`
+
 ```php
 <?php
 

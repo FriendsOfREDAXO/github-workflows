@@ -4,6 +4,8 @@ https://nightwatchjs.org/
 
 ### Tests
 
+`tests/e2e/example.js`
+
 ```javascript
 describe('Test Titel', () => {
   /**
