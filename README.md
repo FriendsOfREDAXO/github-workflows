@@ -53,7 +53,8 @@ mit `composer install`. Danach kann PHPUnit/PestPHP mit `composer test` aufgeruf
 Auch Nightwatchjs kann lokal ausgeführt werden. Wie auch bei den Unit-Tests ist Voraussetzung, dass das Addon in der
 regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
 Im Addon-Ordner müssen dann die entsprechenden Node-Module installiert werden. Das passiert über ein Terminal
-mit `npm install`. Danach kann Nightwatchjs mit `npm test` aufgerufen werden.
+mit `npm install`. Weiter muss eine `.env`-Datei angelegt werden. In dieser muss die `LAUNCH_URL` (URL der REDAXO-Seite) eingefügt werden,
+z.B.: `LAUNCH_URL=http://local.dev/`. Danach kann Nightwatchjs mit `npm test` aufgerufen werden.
 
 ## TODO
 
