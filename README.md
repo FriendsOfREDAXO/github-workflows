@@ -59,6 +59,7 @@ z.B.: `LAUNCH_URL=http://local.dev/`. Danach kann Nightwatchjs mit `npm test` au
 ## TODO
 
 - [x] Workflow für E2E Tests anlegen
+- [ ] Workflow für Playwright anlegen
 - [ ] Workflow für REXStan anlegen
 - [x] Workflow für Pest anlegen (als alternative zu PHPUnit)
 - [x] Beispiel im jeweiligen Workflow anlegen
