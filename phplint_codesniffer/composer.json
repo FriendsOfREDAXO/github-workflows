@@ -1,0 +1,12 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "lint": "phplint ./ --exclude=vendor --no-cache lib",
+    "phpcs": "phpcs --extensions=php --standard=phpcs.xml lib",
+    "phpcbf": "phpcbf --extensions=php --standard=phpcs.xml lib"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.6",
+    "overtrue/phplint": "^4.1"
+  }
+}
