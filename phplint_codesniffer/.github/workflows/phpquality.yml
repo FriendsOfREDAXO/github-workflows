@@ -1,4 +1,4 @@
-name: Nightwatch
+name: PHP QA
 
 on:
   push:
