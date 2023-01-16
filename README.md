@@ -55,11 +55,3 @@ regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
 Im Addon-Ordner müssen dann die entsprechenden Node-Module installiert werden. Das passiert über ein Terminal
 mit `npm install`. Weiter muss eine `.env`-Datei angelegt werden. In dieser muss die `LAUNCH_URL` (URL der REDAXO-Seite) eingefügt werden,
 z.B.: `LAUNCH_URL=http://local.dev/`. Danach kann Nightwatchjs mit `npm test` aufgerufen werden.
-
-## TODO
-
-- [x] Workflow für E2E Tests anlegen
-- [x] Workflow für Playwright anlegen
-- [ ] Workflow für REXStan bzw. PHPStan anlegen
-- [x] Workflow für Pest anlegen (als alternative zu PHPUnit)
-- [x] Beispiel im jeweiligen Workflow anlegen
