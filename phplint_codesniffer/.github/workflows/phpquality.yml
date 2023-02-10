@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  e2e:
+  phpquality:
 
     runs-on: ubuntu-latest
     permissions:
