@@ -8,7 +8,7 @@ finden: https://docs.github.com/en/actions.
 ## Workflows verwenden
 
 Um die Workflows in eurem Github Repository zu verwenden, müsst ihr alle Dateien (außer README.md) aus diesem Repository
-in eures Kopieren. Die Ordnerstruktur muss bestehen bleiben. Weiter müssen die Actions in eurem Repository aktiviert
+in eures kopieren. Die Ordnerstruktur muss bestehen bleiben. Weiter müssen die Actions in eurem Repository aktiviert
 sein. Die Einstellungen findet ihr unter: _Settings > Actions > General > `Allow all actions and reusable workflows`_.
 
 Ein Workflow ist über eine `.yml` definiert, diese befinden sich im Ordner `.github/workflows`.
@@ -29,10 +29,10 @@ in den Branch `master` oder `main`. Danach wird eine virtuelle Maschine mit der 
 Möchte man einen Workflow überspringen, fügt man der Commit-Message einfach eine der folgenden Befehle
 hinzu: `[skip ci]`, `[ci skip]`, `[no ci]`, `[skip actions]`, `[actions skip]`.
 
-Nun folgen die Schritte die für den eigentlichen Workflow relevant sind:
+Nun folgen die Schritte, die für den eigentlichen Workflow relevant sind:
 
 1. PHP (8.0) aufsetzten, diverse Erweiterungen installieren.
-2. Den aktuellen REDAXO release runterladen und in den Ordner `redaxo_cms` entpacken. Dieser wird im Addon selbst
+2. Den aktuellen REDAXO release herunterladen und in den Ordner `redaxo_cms` entpacken. Dieser wird im Addon selbst
    angelegt.
 3. MySQL starten und eine Datenbank mit dem Namen `redaxo5` anlegen.
 4. REDAXO über den Konsolenbefehl installieren.
@@ -50,8 +50,17 @@ mit `composer install`. Danach kann PHPUnit/PestPHP mit `composer test` aufgeruf
 
 ## Nightwatchjs/Playwright lokal ausführen
 
-Auch Nightwatchjs/Playwright kann lokal ausgeführt werden. Wie auch bei den Unit-Tests ist Voraussetzung, dass das Addon in der
+Auch Nightwatchjs/Playwright kann lokal ausgeführt werden. Wie auch bei den Unit-Tests ist Voraussetzung, dass das Addon
+in der
 regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
 Im Addon-Ordner müssen dann die entsprechenden Node-Module installiert werden. Das passiert über ein Terminal
-mit `npm install`. Weiter muss eine `.env`-Datei angelegt werden. In dieser muss die `LAUNCH_URL` (URL der REDAXO-Seite) eingefügt werden,
+mit `npm install`. Weiter muss eine `.env`-Datei angelegt werden. In dieser muss die `LAUNCH_URL` (URL der REDAXO-Seite)
+eingefügt werden,
 z.B.: `LAUNCH_URL=http://local.dev/`. Danach kann Nightwatchjs mit `npm test` aufgerufen werden.
+
+## PHP CS Fixer lokal ausführen
+
+PHP CS Fixer kann auch lokal ausgeführt werden.
+Hat man die Composer-Packages installiert, und die Datei `.php-cs-fixer.dist.php` angelegt, kann PHP CS Fixer
+mit `composer cs-fix` aufgerufen werde, um die gefundenen Fehler zu beheben.
+Mit `composer cs-dry` werden die Fehler nur ausgegeben.
