@@ -2,7 +2,7 @@
 
 Fixed Code-Styles und pushed diese direkt in das Repository. 
 
-Möchte man vermeiden das Dateien verändert werden kann der Auto-Commit entfernt und das Composer-Command verändert werden:
+Möchte man vermeiden, dass Dateien verändert werden kann der Auto-Commit entfernt und das Composer-Command verändert werden:
 ```
 -   uses: stefanzweifel/git-auto-commit-action@v4
     with:
