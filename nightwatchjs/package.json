@@ -3,7 +3,7 @@
     "test": "nightwatch"
   },
   "dependencies": {
-    "nightwatch": "^2.6.10"
+    "nightwatch": "^3.1.2"
   },
   "devDependencies": {
     "geckodriver": "^3.0.2"
