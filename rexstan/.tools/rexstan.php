@@ -21,9 +21,9 @@ $extensions = [
     '../../../../redaxo/src/addons/rexstan/vendor/phpstan/phpstan-strict-rules/rules.neon',
     '../../../../redaxo/src/addons/rexstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon',
     '../../../../redaxo/src/addons/rexstan/config/phpstan-phpunit.neon',
-    '../../../../redaxo/src/addons/rexstan/config/phpstan-dba.neon',
-    '../../../../redaxo/src/addons/rexstan/config/cognitive-complexity.neon',
-    '../../../../redaxo/src/addons/rexstan/config/code-complexity.neon',
+    // '../../../../redaxo/src/addons/rexstan/config/phpstan-dba.neon',
+    // '../../../../redaxo/src/addons/rexstan/config/cognitive-complexity.neon',
+    // '../../../../redaxo/src/addons/rexstan/config/code-complexity.neon',
     '../../../../redaxo/src/addons/rexstan/config/dead-code.neon'
 ];
 
@@ -37,4 +37,4 @@ $addon = ['../../../../redaxo/src/addons/' . getenv('ADDON_KEY') . '/'];
  * @param array $extensions the extensions to use
  * @param int $phpVersion the php version to use
  */
-\rexstan\RexStanUserConfig::save(6, $addon, $extensions, 80115);
+\rexstan\RexStanUserConfig::save(5, $addon, $extensions, 80203);
