@@ -1,66 +1,113 @@
-# Github-Workflows für REDAXO 5 Addons
+# Standard GitHub Workflows für Redaxo Addons
+Die hier angelegten Workflows sind der aktuelle Standard für FOR AddOns
+Die Integration in ein Addon ist relativ einfach und hilft, die Codequalität des jeweiligen AddOns zu verbessern und einen gemeinsamen Standard zu schaffen.
 
-In diesem Repository findet ihr Workflows für eure REDAXO-Addons.
-Diese sollen euch als Hilfe für den Einstieg dienen.
-Informationen rund um Workflows und Actions könnt ihr in der offiziellen Dokumentation
-finden: https://docs.github.com/en/actions.
+## Github Workflows im eigenem Projekt einrichten?
+1. Github Actions im Repository aktivieren (Settings > Actions > General > Allow all actions and reusable workflows) - https://docs.github.com/en/actions
+2. Alle Dateien und Ordner aus diesem Repo (außer _example und README.md) in das AddOn kopieren.
+3. Ggf. Abhängigkeiten zu anderen AddOns (und deren Abhängigkeiten) in phpunit.yml und rexstan.yml (.github/workflows) eintragen ([Anleitung](#rexstan-1))
+4. Optional: Eigene Unit-Tests schreiben ([Anleitung](#phpunit-1)
+5. Fertig  🚀
 
-## Workflows verwenden
+## Was sind GitHub Workflows?
+GitHub Workflows sind `.yml` Dateien die in `.github/workflows` liegen und automatisch bei bestimmten Aktionen im Repository (z.B. einem Push oder einem Pull Request) aufgerufen werden.
+Im Hintergrund wird dann innerhalb von Sekunden eine virtuelle Maschine gestartet, Redaxo samt AddOns installiert und die Tests ausgeführt.
+> Sobald die Tests in ein AddOn integriert sind laufen sie automatisch bei jedem Push und Pull Request. Verändert wird der Code allerdings nur duch den CS Fixer. Die beiden anderen Tests geben lediglich Informationen über das Testergebnis aus. **Dass AddOn kann auch bei fehlgeschlagenen Tests hochgeladen und genutzt werden**
 
-Um die Workflows in eurem Github Repository zu verwenden, müsst ihr alle Dateien (außer README.md) aus diesem Repository
-in eures kopieren. Die Ordnerstruktur muss bestehen bleiben. Weiter müssen die Actions in eurem Repository aktiviert
-sein. Die Einstellungen findet ihr unter: _Settings > Actions > General > `Allow all actions and reusable workflows`_.
 
-Ein Workflow ist über eine `.yml` definiert, diese befinden sich im Ordner `.github/workflows`.
+## Welche Tests gibt es?
+### PHP CS Fixer
+Untersucht ob der Code sich an die definierten Regeln hält **und formatiert den Code ggf. direkt um**.
+### Rexstan
+Prüft den Code mit Rexstan nach den definierten Regeln und gibt eventuelle Fehler aus.
+### PHPUnit
+Stellt die Möglichkeit für eigene Unit-Test bereit. ([Anleitung](#phpunit-1))
+### Publish to Redaxo
+AddOn durch ein GitHub Release automatisch in den Redaxo Installer eintragen.
 
-Weitere Informationen könnt ihr in den Kommentaren des jeweiligen Workflow finden.
 
-Um PHPUnit, PestPHP oder Nightwatchjs zu nutzen, müssen vorher natürlich noch die Tests definiert werden. Alle Tests
-müssen sich im Ordner `tests` befinden. Tests für PHPUnit oder PestPHP zusätzlich im Unterordner `unit`, für
-Nightwatchjs im Unterordner `e2e`. Unit-Tests müssen mit `_test` enden, z.B. `addon_test.php`. Diese Struktur kann frei
-angepasst werden. Für PHPUnit und PestPHP in `phpunit.xml.dist`, für Nightwatchjs in `nightwatch.conf.js`.
+# Konfiguration und weitere Infos
+Einige der Tests benötigen individuelle Einstellungen die im Folgenden aufgeführt sind. Außerdem sind hier tiefere Informationen zu den einzelnen Tests vermerkt.
 
-### Was im Workflow passiert
+## PHP CS Fixer
+CS Fixer benötigt keine weiteren Konfigurationen. Das Script öffnet die `composer.json` installiert die benötigten Packages (`require-dev`) und führt die dort bereitgestellten Scripte aus (`cs-dry` und `cs-fix`).
+In der `.php-cs-fixer.dist.php` wird das [Redaxo Regelset](https://github.com/redaxo/php-cs-fixer-config/blob/main/src/Config.php) integriert.
 
-Schaut man sich den Workflow `phpunit/phpunit.yml` an, kann man relativ einfach herausfinden was in diesem passiert.
+### PHP CS Fixer lokal ausführen
+PHP CS Fixer kann auch lokal ausgeführt werden. Hierzu muss auf dem System einmalig global [Composer](https://getcomposer.org/download) installiert werden.
+Anschließend führt man in der Console einmalig `composer install` hiermit werden die Packages aus `require-dev` lokal installiert.
+Nun kann man jederzeit mit `composer cs-dry` aktuelle Fehler anzeigen lassen, und/oder mit `composer cs-fix` gefundene Fehler beheben lassen.
 
-Neben Namen definiert man zunächst wann dieser aufgerufen werden soll. In diesem Fall bei einem Push oder Pull request
-in den Branch `master` oder `main`. Danach wird eine virtuelle Maschine mit der neuesten Ubuntu Version gestartet.
-Möchte man einen Workflow überspringen, fügt man der Commit-Message einfach eine der folgenden Befehle
-hinzu: `[skip ci]`, `[ci skip]`, `[no ci]`, `[skip actions]`, `[actions skip]`.
+## Rexstan
+Werden für ein AddOn weitere AddOns benötigt müssen diese in der rexstan.yml eingetragen werden.  Im Bereich - name: Copy and install AddOns wird das aktuelle Repop kopiert, Rexstan heruntergeladen und anschließend beides installiert.
+```yaml
+      - name: Copy and install Addons
+        run: |
+          rsync -av --exclude='./vendor' --exclude='.github' --exclude='.git' --exclude='redaxo_cms' './' 'redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}'
+          redaxo_cms/redaxo/bin/console install:download 'rexstan' '1.*'
+          redaxo_cms/redaxo/bin/console package:install 'rexstan'
+          redaxo_cms/redaxo/bin/console package:install '${{ github.event.repository.name }}'
+```
+Eigene Abhängigkeiten werden hier eingefügt. Hat das Abhängige AddOn weitere Abhängigkeiten müssen diese ebenfalls eingetragen werden. **Wichtig, Abhängigkeiten müssen immer zuerst installiert werden, sonst kommt es zu einem Fehler während der Installation.
+Hier ein Beispiel für ein AddOn, das YRewrite benötigt (Yrewrite wiederum benötigt YForm):
+```yaml
+      - name: Copy and install Addons
+        run: |
+          rsync -av --exclude='./vendor' --exclude='.github' --exclude='.git' --exclude='redaxo_cms' './' 'redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}'
+          redaxo_cms/redaxo/bin/console install:download 'rexstan' '1.*'
+          redaxo_cms/redaxo/bin/console install:download 'yrewrite' '2.*'
+          redaxo_cms/redaxo/bin/console install:download 'yform' '4.*'
+          redaxo_cms/redaxo/bin/console package:install 'yform'
+          redaxo_cms/redaxo/bin/console package:install 'yrewrite'
+          redaxo_cms/redaxo/bin/console package:install 'rexstan'
+          redaxo_cms/redaxo/bin/console package:install '${{ github.event.repository.name }}'
+```
+In .tools/rexstan.php sind die Regeln für Rexstan definiert.
 
-Nun folgen die Schritte, die für den eigentlichen Workflow relevant sind:
+# PHPUnit
+Genauso wie bei ([Rexstan](#rexstan-konfigurieren)) müssen bei PHP Unit Abhängigkeiten hinterlegt werden.
 
-1. PHP (8.0) aufsetzten, diverse Erweiterungen installieren.
-2. Den aktuellen REDAXO release herunterladen und in den Ordner `redaxo_cms` entpacken. Dieser wird im Addon selbst
-   angelegt.
-3. MySQL starten und eine Datenbank mit dem Namen `redaxo5` anlegen.
-4. REDAXO über den Konsolenbefehl installieren.
-5. Das Addon in den redaxo_cms-Ordner verschieben und installieren. In diesem Schritt könnt ihr noch weitere Addons
-   installieren, falls diese benötigt werden.
-6. Abhängigkeiten aus der composer.json installieren, aktuell nur `phpunit`.
-7. PHPUnit ausführen. PHPUnit wird über ein Script aufgerufen, das in der composer.json definiert ist.
+Danach ist der Workflow für eigene Tests vorbereitet. In .tools/bootstrap.php sind Variablen für PHPUnit festgelegt. In phpunit.xml.dist sind die Regeln für PHPUnit definiert.
+In der Composer.json ist ein Script `unit-test` hinterlegt, das die Tests ausführt. Es werden automatisch alle Tests ausgeführt die im Ordner `tests/unit`liegen und mit `_test.php` enden.
 
-## PHPUnit/PestPHP lokal ausführen
+## PHPUnit lokal ausführen
+Auch PHPUnit kann lokal ausgeführt werden. Wie bei [PHP CS Fixer](#php-cs-fixer-lokal-ausführen) müssen einmalig Composer und die benötigten Packages installiert werden.
+Danach können die Tests über die Konsole mit `composer unit-test` ausgeführt werden.
 
-PHPUnit/PestPHP kann auch lokal ausgeführt werden. Voraussetzung ist, dass das Addon in der regulären REDAXO Struktur
-liegt (`redaxo\src\addons\mein_addon`).
-Im Addon-Ordner müssen dann die entsprechenden Composer-Packages installiert werden. Das passiert über ein Terminal
-mit `composer install`. Danach kann PHPUnit/PestPHP mit `composer test` aufgerufen werden.
+## Eigene Unit-Tests schreiben
+Mit einem Unit Test kann man eigene PHP Klassen automatisiert Prüfen lassen und damit festlegen, ob die Klasse auch nach Änderungen wie gewünscht funktioniert.
+1. Im AddOn im Ordner `tests/unit` eine neue Datei mit einem aussagekräftigen Namen anlegen. Der Name muss mit `_test.php` enden. (Empfehlung: `addonname_test.php`)
+2. Eine Testklasse für die zu prüfende Klasse anlegen. Die Klasse muss mit `TEST` enden und erweitert die Klasse `TestCase`
+3. Für jeden Test der Klasse eine Funktion anlegen die mit `test` beginnt. (Empfehlung: `testFunktionName()`)
+4. In der Funktion wird dann definiert was die Testklasse tun soll.
+5. Abschließend wird das Ergebnis (zum Beispiel mit einer Assert Funktion) überprüft. `TestCase` liefert etliche Assert Funktionen. Man kann auf true, false prüfen, prüfen ob ein Ordner oder eine Datei existiert, zwei identische Werte vergleichen und noch vieles mehr ([Dokumentation](https://docs.phpunit.de/en/10.0/assertions.html)).
 
-## Nightwatchjs/Playwright lokal ausführen
+>Langfristig sollte das Ziel sein, für jede Klasse und jede Funktion entsprechende Tests zu schreiben. Da dass jedoch viel Fleißarbeit ist, ist es sinnvoll, zunächst nur die wichtigsten Funktionen zu testen und ggf. neue Erweiterungen mit Tests zu versehen.
 
-Auch Nightwatchjs/Playwright kann lokal ausgeführt werden. Wie auch bei den Unit-Tests ist Voraussetzung, dass das Addon
-in der
-regulären REDAXO Struktur liegt (`redaxo\src\addons\mein_addon`).
-Im Addon-Ordner müssen dann die entsprechenden Node-Module installiert werden. Das passiert über ein Terminal
-mit `npm install`. Weiter muss eine `.env`-Datei angelegt werden. In dieser muss die `LAUNCH_URL` (URL der REDAXO-Seite)
-eingefügt werden,
-z.B.: `LAUNCH_URL=http://local.dev/`. Danach kann Nightwatchjs mit `npm test` aufgerufen werden.
+### Beispiel Werte abgleichen
+Hier wird die Ausgabe der eigenen Funktion mit einem erwarteten Wert abgeglichen.
+```php
+class meineKlasseTEST extends TestCase {
+    public function testFunktionName() {
+        $actual = meineKlasse::funktionName();
+        $expected = 'Erwarteter Wert';
+        static::assertEquals($expected, $actual);
+}
+```
+### Beispiel rex_view::addCssFile
+Dieser Test ist aus dem Redaxo Core. Hier wird addCssFile aus der Klasse rex_view getestet. Es wird geprüft, ob die Datei am Ende der Liste der CSS Dateien auftaucht. Außerdem wird geprüft, ob eine CSS Datei mit einem definierten Key auch wiederm mit diesem Key aufrufbar ist.
 
-## PHP CS Fixer lokal ausführen
+```php
+class meineKlasseTEST extends TestCase {
+    public function testAddGetCss(): void
+    {
+        rex_view::addCssFile('my.css');
+        $files = rex_view::getCssFiles()['all'];
+        static::assertTrue('my.css' == end($files));
 
-PHP CS Fixer kann auch lokal ausgeführt werden.
-Hat man die Composer-Packages installiert, und die Datei `.php-cs-fixer.dist.php` angelegt, kann PHP CS Fixer
-mit `composer cs-fix` aufgerufen werde, um die gefundenen Fehler zu beheben.
-Mit `composer cs-dry` werden die Fehler nur ausgegeben.
+        rex_view::addCssFile('print.css', 'print');
+        $files = rex_view::getCssFiles()['print'];
+        static::assertTrue('print.css' == end($files));
+    }
+}
+```

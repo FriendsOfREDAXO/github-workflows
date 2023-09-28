@@ -4,7 +4,7 @@
     "test": "./vendor/bin/pest --testdox"
   },
   "require-dev": {
-    "pestphp/pest": "^2.12"
+    "pestphp/pest": "^2.19.2"
   },
   "config": {
     "allow-plugins": {
