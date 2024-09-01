@@ -27,7 +27,7 @@ Hängt man `[skip ci]` an den Commit, werden die Tests nicht ausgeführt.
 > der Code allerdings nur durch den CS Fixer. Die beiden anderen Tests geben lediglich Informationen über das Testergebnis
 > aus. **Dass AddOn kann auch bei fehlgeschlagenen Tests hochgeladen und genutzt werden**
 
-## Welche Tests gibt es?
+### Konfiguration und weitere Infos
 
 <https://github.com/FriendsOfREDAXO/github-workflows/wiki>
 
@@ -55,7 +55,3 @@ AddOn durch ein GitHub Release automatisch in den Redaxo Installer eintragen.
 
 <https://github.com/FriendsOfREDAXO/github-workflows/wiki/Installer%E2%80%90Action>
 
-# Konfiguration und weitere Infos
-
-Einige der Tests benötigen individuelle Einstellungen die im Folgenden aufgeführt sind. Außerdem sind hier tiefere
-Informationen zu den einzelnen Tests vermerkt.
