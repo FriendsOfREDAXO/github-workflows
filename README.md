@@ -34,21 +34,25 @@ Hängt man `[skip ci]` an den Commit, werden die Tests nicht ausgeführt.
 ### PHP CS Fixer
 
 Untersucht ob der Code sich an die definierten Regeln hält **und formatiert den Code ggf. direkt um**.
+
 <https://github.com/FriendsOfREDAXO/github-workflows/wiki/PHP-CS-Fixer>
 
 ### Rexstan
 
 Prüft den Code mit Rexstan nach den definierten Regeln und gibt eventuelle Fehler aus.
+
 <https://github.com/FriendsOfREDAXO/github-workflows/wiki/rexstan-(phpstan-f%C3%BCr-REDAXO)>
 
 ### PHPUnit
 
 Stellt die Möglichkeit für eigene Unit-Test bereit. ([Anleitung](#phpunit-1))
+
 <https://github.com/FriendsOfREDAXO/github-workflows/wiki/PHP-Unit>
 
 ### Publish to Redaxo
 
 AddOn durch ein GitHub Release automatisch in den Redaxo Installer eintragen.
+
 <https://github.com/FriendsOfREDAXO/github-workflows/wiki/Installer%E2%80%90Action>
 
 # Konfiguration und weitere Infos
