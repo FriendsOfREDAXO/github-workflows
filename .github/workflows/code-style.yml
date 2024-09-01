@@ -1,5 +1,15 @@
 name: PHP-CS-Fixer
 
+# Erstelle eine `composer.json` im Repo mit folgendem Inhalt
+# {
+#     "require-dev": {
+#         "friendsofphp/php-cs-fixer": "^3.0"
+#     },
+#     "scripts": {
+#         "cs-fix": "php-cs-fixer fix"
+#     }
+# }
+
 on:
     push:
         branches: [ master, main ]
